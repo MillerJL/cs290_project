@@ -2,8 +2,11 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    script(src='/js/bootstrap.min.js')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    script(src='/js/bootstrap.js')
   body
     include ./nav.jade
-    block content
+    div.col-md-2
+    div.col-md-8.container
+      block content
+    div.col-md-2
