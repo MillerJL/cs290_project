@@ -12,7 +12,12 @@ var users = require('./routes/users');
 var mysql = require('mysql');
 config = require("./config");
 db = config.database;
-var connection = mysql.createConnection({user:db.user, database:db.database, password:db.password, host:db.host});
+var connection = mysql.createConnection({
+  user:db.user,
+  database:db.database,
+  password:db.password,
+  host:db.host
+});
 var app = express();
 
 // view engine setup
