@@ -1,4 +1,4 @@
-require('dotenv').load();
+require('dotenv').config();
 
 var express = require('express');
 var path = require('path');
@@ -6,19 +6,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Q = require('q');
+
+config = require("./config");
+var mysql = require('mysql');
+db = config.database;
+var connection = mysql.createConnection({
+  user:process.env.DB_USER,
+  database:process.env.DB_DATABASE,
+  password:process.env.DB_PASS,
+  host:process.env.DB_HOST
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var mysql = require('mysql');
-config = require("./config");
-db = config.database;
-var connection = mysql.createConnection({
-  user:db.user,
-  database:db.database,
-  password:db.password,
-  host:db.host
-});
+
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +37,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(function(req,res,next){
+    req.connection = connection;
+    next();
+});
 app.use('/', routes);
 app.use('/users', users);
 
@@ -42,8 +52,8 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
 
+// error handlers
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
