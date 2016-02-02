@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  //- div.testcolor
+  div.col-sm-4
+  div.col-sm-4.loginbox
+    h1.login-header
+      |Log in
+    form
+      div.form-group
+        label Email address
+        input.form-control.login-form(type="email", id="exampleInputEmail1", placeholder="Email")
+      div.form-group
+        label Password
+        input.form-control.login-form(type="password", id="exampleInputPassword1", placeholder="Password")
+      button.btn.btn-primary.btn-sm(type="submit") submit
+  div.col-sm-4

@@ -12,15 +12,7 @@ function test(db) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var db = req.connection;
-
-  var rows = test(db);
-  console.log(rows)
-
-  db.query('SELECT * FROM test_user', function(err, rows, fields) {
-    if (err) throw err;
-    res.render('index', { title: 'Test site', data: rows });
-  });
+  res.render('login', { title: 'Test site'});
 });
 
 module.exports = router;
