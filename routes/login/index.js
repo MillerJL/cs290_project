@@ -15,4 +15,8 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Test site'});
 });
 
+router.post('/', function(req, res, next) {
+  // console.log(req.body)
+  res.render('index', { title: req.body.email});
+});
 module.exports = router;

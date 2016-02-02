@@ -6,12 +6,12 @@ block content
   div.col-sm-4.loginbox
     h1.login-header
       |Log in
-    form
+    form(action="/login", method="post", enctype="application/x-www-form-urlencoded")
       div.form-group
         label Email address
-        input.form-control.login-form(type="email", id="exampleInputEmail1", placeholder="Email")
+        input.form-control.login-form(type="email", id="exampleInputEmail1", placeholder="Email", name="email")
       div.form-group
         label Password
-        input.form-control.login-form(type="password", id="exampleInputPassword1", placeholder="Password")
+        input.form-control.login-form(type="password", id="exampleInputPassword1", placeholder="Password", name="password")
       button.btn.btn-primary.btn-sm(type="submit") submit
   div.col-sm-4
