@@ -3547,7 +3547,7 @@ tbody.collapse.in {
   font-size: 14px;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #b3b3b3;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border: 1px solid #ccc;
@@ -4519,8 +4519,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
-  background-color: transparent;
+  /*color: #5e5e5e;*/
+  background-color:  #666666;
 }
 .navbar-default .navbar-text {
   color: #777;
@@ -4530,14 +4530,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333;
-  background-color: transparent;
+  /*color: #333;*/
+  background-color:  #666666;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #fff;
-  background-color: #333333;
+  /*color: #fff;*/
+  background-color: #666666;
 }
 .testcolor {
   margin: auto;
@@ -4997,6 +4997,12 @@ a.badge:focus {
   margin-right: auto;
   width:100%; /* you can use % */
   height: auto;
+}
+.no-padding {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .jumbotron {
   padding-top: 30px;
@@ -5947,7 +5953,7 @@ button.close {
 }
 .modal-content {
   position: relative;
-  background-color: #fff;
+  background-color: #4d4d4d;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border: 1px solid #999;

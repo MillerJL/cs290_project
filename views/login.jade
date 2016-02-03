@@ -1,9 +1,9 @@
 extends layout
-
 block content
   //- div.testcolor
   div.col-sm-4
   div.col-sm-4.loginbox
+    
     h1.login-header
       |Log in
     form(action="/login", method="post", enctype="application/x-www-form-urlencoded")
@@ -14,4 +14,17 @@ block content
         label Password
         input.form-control.login-form(type="password", id="exampleInputPassword1", placeholder="Password", name="password")
       button.btn.btn-primary.btn-sm(type="submit") submit
+    a.btn.no-padding(data-toggle="modal", href="#create_account") Create New Account
   div.col-sm-4
+  
+    .modal.fade(id="create_account" tabindex="-1" role="dialog" aria-labelledby="create_accountLabel" aria-hidden="true")
+      .modal-dialog.wide-modal
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+            h4.create_accountLabel.modal-title 
+            | #{title}
+          .modal-body
+              #container(style="width:90%; height:400px;")
+          .modal-footer
+            button.btn.btn-primary(type='button', data-dismiss='modal') Close

@@ -6,11 +6,15 @@
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='/') SDP
+          a.navbar-brand(href='#') Project name
         .navbar-collapse.collapse
           ul.nav.navbar-nav
+            li.active
+              a(href='#') Home
             li
               a(href='#about') About
+            li
+              a(href='#contact') Contact
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
                 | Dropdown 
@@ -30,4 +34,8 @@
                   a(href='#') One more separated link
           ul.nav.navbar-nav.navbar-right
             li
-              a(href='./login') Login
+              a(href='../navbar/') Default
+            li
+              a(href='../navbar-static-top/') Static top
+            li.active
+              a(href='./') Fixed top
