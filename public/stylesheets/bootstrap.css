@@ -3043,15 +3043,17 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
+  /*outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline-offset: -2px;*/
+  text-decoration: none;
+  outline: none;
 }
 .btn:hover,
 .btn:focus,
 .btn.focus {
-  color: #333;
   text-decoration: none;
+  color: #286090;
 }
 .btn:active,
 .btn.active {
@@ -4292,7 +4294,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: left;
   height: 50px;
   padding: 15px 15px;
-  font-size: 18px;
+  font-size: 25px;
   line-height: 20px;
 }
 .navbar-brand:hover,
@@ -4515,7 +4517,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   box-shadow: 0 0 11px 30px #111;
 }
 .navbar-default .navbar-brand {
-  color: #fff;
+  /*color: #fff;*/
+  color: #337ab7;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -4556,6 +4559,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-top: 10px;
   padding-bottom: 15px;
   border-radius: 10px;
+}
+.login-container {
+  width: 304px;
+}
+.testLoginPassword {
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -5998,7 +6006,7 @@ button.close {
 .modal-footer {
   padding: 15px;
   text-align: right;
-  border-top: 1px solid #e5e5e5;
+  /*border-top: 1px solid #e5e5e5;*/
 }
 .modal-footer .btn + .btn {
   margin-bottom: 0;
@@ -6028,6 +6036,9 @@ button.close {
   }
   .modal-sm {
     width: 300px;
+  }
+  .modal-md {
+    width: 400px;
   }
 }
 @media (min-width: 992px) {

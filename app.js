@@ -20,11 +20,10 @@ var connection = mysql.createConnection({
   host:process.env.DB_HOST
 });
 
-
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login/index');
+var createAccount = require('./routes/login/createAccount')
 
 var app = express();
 
@@ -55,6 +54,7 @@ app.use(function(req,res,next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/login', login);
+app.use('/login/createAccount', createAccount)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
