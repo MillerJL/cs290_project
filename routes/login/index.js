@@ -16,6 +16,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  res.render('index', { title: req.body.email});
+  req.url = '/';
+  // res.render('index', { title: req.body.email});
+  req.session.user = req.body.email;
+  console.log(req.session.user);
+  res.redirect('/')
 });
 module.exports = router;
