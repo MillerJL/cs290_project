@@ -1,4 +1,4 @@
-$("#formCheckPassword").validate({
+$("#createAccount").validate({
   rules: {
     password: {
       required: true,
