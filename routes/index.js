@@ -12,7 +12,7 @@ function test(db) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var db = req.connection;
+  // var db = req.connection;
   var cookie = req.cookies.cookieName;
   if (req.session.views) {
     req.session.views++;
@@ -21,11 +21,11 @@ router.get('/', function(req, res, next) {
     req.session.views = 1;
   }
 
-  db.query('SELECT * FROM test_user', function(err, rows, fields) {
-    if (err) throw err;
-    console.log(rows);
-    res.render('index', { title: 'Test site', data: rows });
-  });
+  // db.query('SELECT * FROM test_user', function(err, rows, fields) {
+  //   if (err) throw err;
+  //   console.log(rows);
+    res.render('index', { title: 'Test site'});
+  // });
 });
 
 module.exports = router;

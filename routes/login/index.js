@@ -16,10 +16,22 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  req.url = '/';
-  // res.render('index', { title: req.body.email});
-  req.session.user = req.body.email;
-  // console.log(req.session.user);
-  res.redirect('/')
+  req.connection.query('SELECT * from test_user WHERE email = ?', [req.body.email], function(err, rows, fields) {
+    if (!err) {
+      if(rows.length != 0) {
+        if(rows[0].password == req.body.password) {
+          // set session
+          req.session.user_email = req.body.email;
+          req.session.user_name = rows[0].name;
+          res.redirect('/');
+        } else {
+          res.render('login', {valid_login: 1, error_message: "Login information invalid"});
+        }
+      } else {
+        res.render('login', {valid_login: 1, error_message: "Login information invalid"});
+      }
+    } else
+      console.log('Error while performing Query.');
+  });
 });
 module.exports = router;
