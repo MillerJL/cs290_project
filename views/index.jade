@@ -1,8 +1,10 @@
 extends layout
 
 block content  
-  h1
-    |asdfafsdfads
+  if session.logged_in
+    h1 #{session.user_name}
+  else
+    h1 Log in ya dingus
   p #{title}
   div.testcolor
     div.row

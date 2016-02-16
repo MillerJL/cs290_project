@@ -9,6 +9,12 @@ var bodyParser = require('body-parser');
 var Q = require('q');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var bcrypt = require('bcrypt');
+var crypto = require('crypto');
+
+// crypto.randomBytes(48, function(ex, buf) {
+//   console.log(buf.toString('hex'));
+// });
 
 config = require("./config");
 var mysql = require('mysql');
@@ -36,10 +42,20 @@ app.use(session({
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
-}));
-
+  })
+);
+app.use(function(req,res,next) {
+  req.bcrypt = bcrypt;
+  req.salt = bcrypt.genSaltSync(10);
+  next();
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(function(req,res,next) {
+  req.crypto = crypto;
+  next();
+});
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

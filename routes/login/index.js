@@ -19,11 +19,17 @@ router.post('/', function(req, res, next) {
   req.connection.query('SELECT * from test_user WHERE email = ?', [req.body.email], function(err, rows, fields) {
     if (!err) {
       if(rows.length != 0) {
-        if(rows[0].password == req.body.password) {
+        if(req.bcrypt.compareSync(req.body.password, rows[0].password)) {
           // set session
           req.session.user_email = req.body.email;
           req.session.user_name = rows[0].name;
-          res.redirect('/');
+          req.crypto.randomBytes(48, function(ex, buf) {
+            var token = buf.toString('hex');
+            req.session.user_token = token;
+            console.log(req.session.user_token);
+            res.cookie('user_token', token, { maxAge: 10000000, httpOnly: true });
+            res.redirect('/');
+          });
         } else {
           res.render('login', {valid_login: 1, error_message: "Login information invalid"});
         }

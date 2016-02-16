@@ -12,20 +12,13 @@ function test(db) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // var db = req.connection;
-  var cookie = req.cookies.cookieName;
-  if (req.session.views) {
-    req.session.views++;
-    res.setHeader('Content-Type', 'text/html');
-  } else {
-    req.session.views = 1;
-  }
-
-  // db.query('SELECT * FROM test_user', function(err, rows, fields) {
-  //   if (err) throw err;
-  //   console.log(rows);
-    res.render('index', { title: 'Test site'});
-  // });
+  // if (req.session.views) {
+  //   req.session.views++;
+  //   res.setHeader('Content-Type', 'text/html');
+  // } else {
+  //   req.session.views = 1;
+  // }
+  res.render('index', { title: 'Test site', session: req.session });
 });
 
 module.exports = router;

@@ -30,4 +30,7 @@
                   a(href='#') One more separated link
           ul.nav.navbar-nav.navbar-right
             li
+              //- if session.user_name
               a(href='./login') Login
+              //- else
+                //- a(href='#') #{sesssion.user_name}
