@@ -29,7 +29,8 @@ var connection = mysql.createConnection({
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login/index');
-var createAccount = require('./routes/login/createAccount')
+var createAccount = require('./routes/login/createAccount');
+var logout = require('./routes/logout');
 
 var app = express();
 
@@ -72,6 +73,7 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/login/createAccount', createAccount)
 app.use('/login/:user_id', login);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

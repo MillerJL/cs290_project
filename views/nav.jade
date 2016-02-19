@@ -9,28 +9,42 @@
           a.navbar-brand(href='/') SDP
         .navbar-collapse.collapse
           ul.nav.navbar-nav
-            li
-              a(href='#about') About
-            li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown')
-                | Dropdown 
-                span.caret
-              ul.dropdown-menu(role='menu')
-                li
-                  a(href='#') Action
-                li
-                  a(href='#') Another action
-                li
-                  a(href='#') Something else here
-                li.divider
-                li.dropdown-header Nav header
-                li
-                  a(href='#') Separated link
-                li
-                  a(href='#') One more separated link
+            //- li
+            //-   a(href='#about') About
+            //- li.dropdown
+            //-   a.dropdown-toggle(href='#', data-toggle='dropdown')
+            //-     | Dropdown 
+            //-     span.caret
+            //-   ul.dropdown-menu(role='menu')
+            //-     li
+            //-       a(href='#') Action
+            //-     li
+            //-       a(href='#') Another action
+            //-     li
+            //-       a(href='#') Something else here
+            //-     li.divider
+            //-     li.dropdown-header Nav header
+            //-     li
+            //-       a(href='#') Separated link
+            //-     li
+            //-       a(href='#') One more separated link
           ul.nav.navbar-nav.navbar-right
             li
-              //- if session.user_name
-              a(href='./login') Login
-              //- else
-                //- a(href='#') #{sesssion.user_name}
+              if session.logged_in != 1
+                a(href='./login') Login
+              else
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    span.glyphicon.glyphicon-user(aria-hidden="true")
+                    //- |  #{session.user_name} 
+                    span.caret
+                  ul.dropdown-menu(role='menu')
+                    li.dropdown-header Signed in as 
+                      b #{session.user_name}
+                    li.divider
+                    li
+                      a.dropdown-sexy(href='#') Profile
+                    li.divider
+                    li
+                      form(id="logout" action="/logout" method="post")
+                        button.btn.btn-link.dropdown-sexy(type="submit") Logout

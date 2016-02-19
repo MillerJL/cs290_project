@@ -1,48 +1,52 @@
 extends layout
 block content
-  if fuck
-    h1= fuck
-  //- div.testcolor
-  div.col-sm-4
-  div.col-sm-4.loginbox  
-    h1.login-header
-      |Log in
-    if valid_login == 1
-      div.alert.alert-danger(role="alert") #{error_message}
-    form(action="/login", method="post", enctype="application/x-www-form-urlencoded")
-      div.form-group
-        label Email address
-        input.form-control.login-form(type="email", id="exampleInputEmail1", placeholder="Email", name="email")
-      div.form-group
-        label Password
-        input.form-control.login-form(type="password", id="exampleInputPassword1", placeholder="Password", name="password")
-      button.btn.btn-primary.btn-sm(type="submit") submit
-    a.btn.no-padding(data-toggle="modal", href="#create_account") Create New Account
-  div.col-sm-4
-    .modal.fade(id="create_account" tabindex="-1" role="dialog" aria-labelledby="create_accountLabel" aria-hidden="true")
-      .modal-dialog.modal-md
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-            h4.create_accountLabel.modal-title 
-            | Create a new account
-          .modal-body
-            if valid_create_account == 1
-              div.alert.alert-danger(role="alert") #{error_message}              
+  include ./nav.jade
+  div.col-md-2
+  div.col-md-8
+    if fuck
+      h1= fuck
+    //- div.testcolor
+    div.col-sm-4
+    div.col-sm-4.loginbox  
+      h1.login-header
+        |Log in
+      if valid_login == 1
+        div.alert.alert-danger(role="alert") #{error_message}
+      form(action="/login", method="post", enctype="application/x-www-form-urlencoded")
+        div.form-group
+          label Email address
+          input.form-control.login-form(type="email", id="exampleInputEmail1", placeholder="Email", name="email")
+        div.form-group
+          label Password
+          input.form-control.login-form(type="password", id="exampleInputPassword1", placeholder="Password", name="password")
+        button.btn.btn-primary.btn-sm(type="submit") submit
+      a.btn.no-padding(data-toggle="modal", href="#create_account") Create New Account
+    div.col-sm-4
+      .modal.fade(id="create_account" tabindex="-1" role="dialog" aria-labelledby="create_accountLabel" aria-hidden="true")
+        .modal-dialog.modal-md
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+              h4.create_accountLabel.modal-title 
+              | Create a new account
+            .modal-body
+              if valid_create_account == 1
+                div.alert.alert-danger(role="alert") #{error_message}              
 
-            form.center-block(id="createAccount" method="post" action="/login/createAccount")
-              div.form-group.login-container.center-block
-                input.form-control.login-form(type="email", id="email", placeholder="email", name="email")
-              div.form-group.login-container.center-block
-                input.form-control.login-form(type="text", id="name", placeholder="name", name="name")
-              div.form-group.login-container.center-block
-                input.form-control(type="password" name="password" id="password" placeholder="password")
-              div.form-group.login-container.center-block
-                input.form-control(type="password" name="cfmPassword" id="cfmPassword" placeholder="confirm password")
-              div.form-group.login-container.center-block
-                button.btn.btn-primary.btn-sm(type="submit" name="submit") Submit
-  if valid_create_account == 1
-    script(type="text/javascript").
-      $(window).load(function(){
-        $('#create_account').modal('show');
-      });
+              form.center-block(id="createAccount" method="post" action="/login/createAccount")
+                div.form-group.login-container.center-block
+                  input.form-control.login-form(type="email", id="email", placeholder="email", name="email")
+                div.form-group.login-container.center-block
+                  input.form-control.login-form(type="text", id="name", placeholder="name", name="name")
+                div.form-group.login-container.center-block
+                  input.form-control(type="password" name="password" id="password" placeholder="password")
+                div.form-group.login-container.center-block
+                  input.form-control(type="password" name="cfmPassword" id="cfmPassword" placeholder="confirm password")
+                div.form-group.login-container.center-block
+                  button.btn.btn-primary.btn-sm(type="submit" name="submit") Submit
+    if valid_create_account == 1
+      script(type="text/javascript").
+        $(window).load(function(){
+          $('#create_account').modal('show');
+        });
+  div.col-md-2
