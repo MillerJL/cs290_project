@@ -11,10 +11,10 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');
+var multer  = require('multer');
+var upload = multer({ dest: 'public/uploads/' });
+var fs = require('fs');
 
-// crypto.randomBytes(48, function(ex, buf) {
-//   console.log(buf.toString('hex'));
-// });
 
 config = require("./config");
 var mysql = require('mysql');
@@ -31,6 +31,7 @@ var users = require('./routes/users');
 var login = require('./routes/login/index');
 var createAccount = require('./routes/login/createAccount');
 var logout = require('./routes/logout');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -54,6 +55,9 @@ app.use(function(req,res,next) {
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(function(req,res,next) {
   req.crypto = crypto;
+  req.multer = multer;
+  req.upload = upload;
+  req.fs = fs;
   next();
 });
 
@@ -74,6 +78,7 @@ app.use('/login', login);
 app.use('/login/createAccount', createAccount)
 app.use('/login/:user_id', login);
 app.use('/logout', logout);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

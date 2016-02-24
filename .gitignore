@@ -2,5 +2,7 @@
 *Release Notes.markdown
 .env
 node_modules
+public/uploads/*
+public/images/*
 sessions
 npm-debug.log

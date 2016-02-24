@@ -1,0 +1,16 @@
+extends layout
+
+
+block content  
+  include ./nav.jade
+  div.col-md-2
+  div.col-md-8
+    if session.logged_in
+      h1 #{session.user_name}
+    else
+      h1 Log in ya dingus
+    div.testcolor
+      div.row
+        img.test(src="/images/cfgGqiG.gif")
+  
+  div.col-md-2

@@ -279,6 +279,9 @@ th {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.glyphicon-lg {
+  font-size: 1.5em;
+}
 .glyphicon-asterisk:before {
   content: "\002a";
 }
@@ -4476,6 +4479,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+.navbar-icon {
+  margin-top: 15px;
+  margin-bottom: 0px;
+  cursor: pointer; cursor: hand;
+}
+.navbar-icon:hover {
+  color: #337ab7;
+}
 .navbar-btn {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -5013,6 +5024,25 @@ a.badge:focus {
   margin-right: auto;
   width:100%; /* you can use % */
   height: auto;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 .no-padding {
   padding-top: 0px;

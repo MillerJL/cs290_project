@@ -1,15 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-function test(db) {
-  db.query('SELECT * from test_user', function(err, rows, fields) {
-    if (!err)
-      return rows;
-    else
-      console.log('Error while performing Query.');
-  });
-}
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // if (req.session.views) {
@@ -18,7 +9,20 @@ router.get('/', function(req, res, next) {
   // } else {
   //   req.session.views = 1;
   // }
-  res.render('index', { title: 'Test site', session: req.session });
+  if(req.session.user_id) {
+    req.connection.query('SELECT pic_name from test_pictures WHERE fk_user_id = ? ORDER BY id DESC LIMIT 24', [req.session.user_id], function(err, rows, fields) {
+      if (!err) {
+        res.render('index', { title: 'SDP', session: req.session, images: rows});
+      } else {
+        // req.connection.query('SELECT pic_name from test_pictures WHERE fk_user_id = ?', [req.session.user_id], function(err, rows, fields) {
+          res.render('index', { title: 'SDP', session: req.session, images: rows });
+        // });
+      }
+    });
+  } else {
+    console.log('not logged in');
+    res.render('index_not_logged', { title: 'SDP', session: req.session });
+  }
 });
 
 module.exports = router;

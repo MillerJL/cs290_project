@@ -17,10 +17,10 @@ router.post('/', function(req, res, next) {
       }
     }
     if(error == 1) {
-      res.render('login', {valid_create_account: valid_create_account, error_message: error_message, session: req.session});
+      res.render('login', { title: 'SDP - login', valid_create_account: valid_create_account, error_message: error_message, session: req.session});
     } else {
       var sql = 'INSERT INTO test_user SET ?';
-      var values = {name: req.body.name, email: req.body.email, password: req.bcrypt.hashSync(req.body.password, req.salt)};
+      var values = { name: req.body.name, email: req.body.email, password: req.bcrypt.hashSync(req.body.password, req.salt)};
       req.connection.query(sql, values, function(err, result) {
         if (err) throw err;
         res.redirect('/login');
