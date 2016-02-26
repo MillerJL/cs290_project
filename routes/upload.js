@@ -49,7 +49,6 @@ router.post('/', multer({ dest: './public/uploads/'}).single('upl'), function(re
     }
   } else {
     req.flash("error", "You're not logged in you dingus");
-    req.flash("info", "affdsaasdf");
     res.redirect('/');
   }
 });

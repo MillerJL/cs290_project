@@ -9,8 +9,6 @@ block content
       h1 #{session.user_name}
     else
       h1 Log in ya dingus
-    if session.error && session.error == 1
-      div.alert.alert-danger(role="alert") #{session.error_message}
     div.testcolor
       div.row(id="show-image")
       if images

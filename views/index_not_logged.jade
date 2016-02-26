@@ -10,11 +10,6 @@ block content
       h1 #{session.user_name}
     else
       h1 Log in ya dingus
-    if session.error && session.error == 1
-      div.alert.alert-danger.alert-dismissible.center-text.center-block(role="alert")
-        button.close(type="button" data-dismiss="alert" aria-label="Close")
-          span(aria-hidden="true") &times;
-        p #{session.error_message}
     div.testcolor
       div.row
         img.test(src="/images/cfgGqiG.gif")

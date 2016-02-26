@@ -4,6 +4,5 @@
       span(aria-hidden="true") &times;
     each type in Object.keys(messages)
       ul(class="#{type}")
-      - console.log(messages);
-        each message in messages[type]
+        each message in messages.error
           li= message
