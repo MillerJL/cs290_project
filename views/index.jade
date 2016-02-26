@@ -9,15 +9,33 @@ block content
       h1 #{session.user_name}
     else
       h1 Log in ya dingus
+    if session.error && session.error == 1
+      div.alert.alert-danger(role="alert") #{session.error_message}
     div.testcolor
+      div.row(id="show-image")
       if images
         div.row
           each image, index in images
-            - temp = (index) % 7
-            if (temp != 0)
-              div.col-sm-2
-                img.test(src= "/images/" + image.pic_name)
-            else
-              div.row
-  
+            div.col-sm-2
+              img.test(id="target", src= "/thumbnails/" + image.thumb_name)
+  script(type="text/javascript").
+    //- $( ".test" ).click(function() {
+    //-   //- alert( "Handler for .click() called." );
+    //-   var htmlString = $( this ).html();
+    //-   $( "show-image" ).text( htmlString );
+    //- });
+    $('.test').on('click',function(){
+      //- alert( "Handler for .click() called." );
+      //- $('#show-image').html((event.target).text).show();
+      $('#show-image').prepend('<img id="theImg" src="http://i.imgur.com/cfgGqiG.gif" />')
+      //- $.ajax({url: "http://localhost:3000/images/mushrooms-984c7f1bc6e8dbdc54142c5204acd383.jpg", success: function(result){
+      //-   //- $("#show-image").html(result);
+      //-   $('#show-image').html(event.target).show();
+      //- }});
+      //- if($('#1').css('display')!='none'){
+      //- $('#2').html('Here is my dynamic content').show().siblings('div').hide();
+      //- }else if($('#2').css('display')!='none'){
+      //-     $('#1').show().siblings('div').hide();
+      //- }
+    });  
   div.col-md-2

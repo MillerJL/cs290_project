@@ -14,7 +14,7 @@ var crypto = require('crypto');
 var multer  = require('multer');
 var upload = multer({ dest: 'public/uploads/' });
 var fs = require('fs');
-
+var easyimg = require('easyimage');
 
 config = require("./config");
 var mysql = require('mysql');
@@ -34,6 +34,12 @@ var logout = require('./routes/logout');
 var upload = require('./routes/upload');
 
 var app = express();
+
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,6 +64,7 @@ app.use(function(req,res,next) {
   req.multer = multer;
   req.upload = upload;
   req.fs = fs;
+  req.easyimg = easyimg;
   next();
 });
 

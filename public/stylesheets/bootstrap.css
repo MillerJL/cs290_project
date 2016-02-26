@@ -5119,11 +5119,15 @@ a.thumbnail.active {
   padding: 9px;
   color: #333;
 }
+.alert-small,
 .alert {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+}
+.alert-small {
+  width: 40%;
 }
 .alert h4 {
   margin-top: 0;

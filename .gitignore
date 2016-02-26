@@ -1,8 +1,11 @@
 .DS_Store
 *Release Notes.markdown
 .env
+steps
+temp
 node_modules
 public/uploads/*
 public/images/*
 sessions
 npm-debug.log
+public/thumbnails/*

@@ -9,24 +9,32 @@ function setErrorMessage(message, session) {
 }
 
 router.post('/', multer({ dest: './public/uploads/'}).single('upl'), function(req, res) {
-  // console.log(req.session.user_token);
   if(req.session.user_token && req.cookies.user_token) {
     if (req.session.token == res.cookie.user_token) {
       req.crypto.randomBytes(16, function(ex, buf) {
         var token = buf.toString('hex');
         var tempName = req.file.originalname;
         var name = tempName.split(".");
-        var newFileName = name[0] + "-" + token + "." + name[1];
+        var newFileName = name[0] + "-" + token;
+        var newFileNameThumbnail = newFileName + "-" + "thumbnail." + name[1];
+        var newFileName = newFileName + "." + name[1];
         var sql = 'INSERT INTO test_pictures SET ?';
-        var values = { pic_name: newFileName, fk_user_id: req.session.user_id };
+        var values = { pic_name: newFileName, thumb_name: newFileNameThumbnail, fk_user_id: req.session.user_id };
         var newFileNamePath = 'public/images/' + newFileName;
 
         req.connection.query(sql, values, function(err, result) {
           if (!err) {
             req.fs.rename(req.file.path, newFileNamePath, function(err) {
               if (!err) {
-                setErrorMessage("Error uploading file", req.session);
-                res.redirect('/');
+                req.easyimg.rescrop({
+                  src: newFileNamePath, dst:'public/thumbnails/' + newFileNameThumbnail,
+                  width:500, height:500,
+                  cropwidth:128, cropheight:128,
+                  x:0, y:0
+                }).then(
+                function() {
+                  res.redirect('/');
+                });
               } else {
                 setErrorMessage("Error uploading file", req.session);
                 res.redirect('/');
@@ -40,7 +48,8 @@ router.post('/', multer({ dest: './public/uploads/'}).single('upl'), function(re
       });
     }
   } else {
-    setErrorMessage("You're not logged in you dingus", req.session);
+    req.flash("error", "You're not logged in you dingus");
+    req.flash("info", "affdsaasdf");
     res.redirect('/');
   }
 });

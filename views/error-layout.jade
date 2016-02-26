@@ -1,0 +1,9 @@
+.messages
+  div.alert.alert-danger.alert-dismissible.center-text.center-block(role="alert")
+    button.close(type="button" data-dismiss="alert" aria-label="Close")
+      span(aria-hidden="true") &times;
+    each type in Object.keys(messages)
+      ul(class="#{type}")
+      - console.log(messages);
+        each message in messages[type]
+          li= message
