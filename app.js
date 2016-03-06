@@ -15,6 +15,7 @@ var multer  = require('multer');
 var upload = multer({ dest: 'public/uploads/' });
 var fs = require('fs');
 var easyimg = require('easyimage');
+var request = require('request');
 
 config = require("./config");
 var mysql = require('mysql');
@@ -32,6 +33,7 @@ var login = require('./routes/login/index');
 var createAccount = require('./routes/login/createAccount');
 var logout = require('./routes/logout');
 var upload = require('./routes/upload');
+var file = require('./routes/file');
 
 var app = express();
 
@@ -86,6 +88,7 @@ app.use('/login/createAccount', createAccount)
 app.use('/login/:user_id', login);
 app.use('/logout', logout);
 app.use('/upload', upload);
+app.use('/file', file);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

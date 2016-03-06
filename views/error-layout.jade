@@ -1,8 +1,8 @@
 .messages
-  div.alert.alert-danger.alert-dismissible.center-text.center-block(role="alert")
+  div.alert.alert-small.alert-danger.alert-dismissible(role="alert")
     button.close(type="button" data-dismiss="alert" aria-label="Close")
       span(aria-hidden="true") &times;
     each type in Object.keys(messages)
-      ul(class="#{type}")
+      ul.type.center-text
         each message in messages.error
           li= message

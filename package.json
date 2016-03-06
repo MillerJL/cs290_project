@@ -26,6 +26,7 @@
     "multer": "^1.1.0",
     "mysql": "^2.10.0",
     "q": "^1.4.1",
+    "request": "^2.69.0",
     "serve-favicon": "~2.3.0",
     "session-file-store": "0.0.24",
     "slack-client": "^1.5.1"

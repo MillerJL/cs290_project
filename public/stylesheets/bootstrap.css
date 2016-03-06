@@ -280,7 +280,7 @@ th {
   -moz-osx-font-smoothing: grayscale;
 }
 .glyphicon-lg {
-  font-size: 1.5em;
+  font-size: 2.5em;
 }
 .glyphicon-asterisk:before {
   content: "\002a";
@@ -5128,6 +5128,8 @@ a.thumbnail.active {
 }
 .alert-small {
   width: 40%;
+  margin:0 auto;
+  text-align:left;
 }
 .alert h4 {
   margin-top: 0;
@@ -5139,6 +5141,7 @@ a.thumbnail.active {
 .alert > p,
 .alert > ul {
   margin-bottom: 0;
+  list-style-position: inside;
 }
 .alert > p + p {
   margin-top: 5px;

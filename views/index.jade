@@ -5,6 +5,7 @@ block content
   include ./nav.jade
   div.col-md-2
   div.col-md-8
+    != messages('error-layout', locals)
     if session.logged_in
       h1 #{session.user_name}
     else
@@ -15,7 +16,7 @@ block content
         div.row
           each image, index in images
             div.col-sm-2
-              img.test(id="target", src= "/thumbnails/" + image.thumb_name)
+              img.test(id="target", name=image.thumb_name, src= "/thumbnails/" + image.thumb_name)
   script(type="text/javascript").
     //- $( ".test" ).click(function() {
     //-   //- alert( "Handler for .click() called." );
@@ -25,7 +26,13 @@ block content
     $('.test').on('click',function(){
       //- alert( "Handler for .click() called." );
       //- $('#show-image').html((event.target).text).show();
-      $('#show-image').prepend('<img id="theImg" src="http://i.imgur.com/cfgGqiG.gif" />')
+      //- console.log(event.target.name);
+      //- $('#show-image').prepend('/file/thumb_name?=' + event.target.name);
+      $.get( "file?thumb_name=" + event.target.name, function( data ) {
+        //- $( ".result" ).html( data );
+        $('#show-image').prepend(data);
+        alert( "Load was performed." );
+      });
       //- $.ajax({url: "http://localhost:3000/images/mushrooms-984c7f1bc6e8dbdc54142c5204acd383.jpg", success: function(result){
       //-   //- $("#show-image").html(result);
       //-   $('#show-image').html(event.target).show();

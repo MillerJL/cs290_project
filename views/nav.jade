@@ -41,5 +41,27 @@
             | Upload an image
           .modal-body
             form(action="/upload", method="post", enctype="multipart/form-data")
-              input(type="file" name="upl" accept="image/*")
+              div.input-group.input-group
+                span.input-group-addon.btn.btn-primary.btn-file
+                  span.glyphicon.glyphicon-upload
+                    input(type="file" name="upl" multiple="" accept="image/*")
+                input.form-control(id="upload-local" type="text" placeholder="Upload local file" aria-describedby="sizing-addon1" readonly="")
+              b -OR- 
+              div.input-group.input-group
+                span.input-group-addon 
+                  span.glyphicon.glyphicon-globe
+                input.form-control(id="upload-url" name="upload-url" type="text" placeholder="Paste URL Here" aria-describedby="sizing-addon1")
+              br
               button.btn.btn-primary.btn-sm(type="submit" name="submit") Submit
+
+  script(type="text/javascript").
+    $(document).on('change', '.btn-file :file', function() {
+      var input = $(this),
+          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      $('#upload-local').val(label);
+      $('#upload-url').val('');
+    });
+  script(type="text/javascript").
+    $('#upload-url').on('change keyup', function () {
+      $('#upload-local').val('');
+    });
