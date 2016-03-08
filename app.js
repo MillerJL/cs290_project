@@ -67,6 +67,7 @@ app.use(function(req,res,next) {
   req.upload = upload;
   req.fs = fs;
   req.easyimg = easyimg;
+  req.request = request;
   next();
 });
 

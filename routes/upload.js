@@ -3,33 +3,36 @@ var router = express.Router();
 var multer  = require('multer');
 var upload = multer({ dest: 'public/uploads/' });
 var q = require('q');
-var request = require('request');
 
 function checkUploadType(values, req, callback) {
-  console.log('CHECK UPLOAD TYPE');
-
   var checkType = function(values, callback) {
     if(values.type == "local") {
       values.originalname = values.file.originalname;
       values.path = values.file.path;
       callback(values);
     } else {
-      var download = function(uri, filename, values, callback){
-        request(uri, function (error, response, body) {
-          request(uri).pipe(fs.createWriteStream(filename)).on('close', callback(values));
-        });
-        // request.head(uri, function(err, response, callback){
-        //   request(uri).pipe(fs.createWriteStream(filename)).on('close', callback(values));
-        // });
-      };
-      values.type = "url";
-      // values.originalname = ((values.file).lastIndexOf('/') + 1);
-      values.originalname = values.file;
-
-      values.path = ((values.path).lastIndexOf('/') + 1);
-      download(values.file, values.originalname, values, function() {
-        callback(values);
+      var download = q.promise(function(fulfill, reject) {
+        // if
+        // fulfill();
+        // reject();
+        // req.request.head(values.file, function(err, re2){
+        //   req.request(values.file)
+        //   .pipe(req.fs.createWriteStream(values.originalname))
+        //   .on('close', re(values));
+        // }
       });
+      values.type = "url";
+      values.originalname = (values.file.substr(values.file.lastIndexOf('/') + 1));
+      values.path = "public/uploads/" + values.originalname;
+      req.request('http://google.com/doodle.png').pipe(fs.createWriteStream('doodle.png'))
+
+      // download()
+      // .then()
+      // .catch()
+      // .done();
+      // download(values.file, values.originalname, function() {
+      //   callback(values);
+      // });
     }
   }
   checkType(values, function(values){
@@ -109,13 +112,13 @@ function createThumb(values, req, callback) {
 
 router.post('/', multer({ dest: './public/uploads/'}).single('upl'), function(req, res) {
   if((req.session.user_token && req.cookies.user_token) && (req.session.token == res.cookie.user_token)) {
-    if(req.file || req.body.upload-url) {
+    if(req.file || req.body.upload_url) {
       values = {};
       if(req.file) {
         values.file = req.file;
         values.type = "local";
       } else {
-        values.file = req.body.upload-url;
+        values.file = req.body.upload_url;
         values.type = "url";
       }
       checkUploadType(values, req, function(values) {
