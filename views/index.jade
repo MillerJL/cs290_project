@@ -11,12 +11,18 @@ block content
     else
       h1 Log in ya dingus
     div.testcolor
-      div.row(id="show-image")
+      //- div.row(id="show-image")
       if images
         div.row
           each image, index in images
             div.col-sm-2
               img.test(id="target", name=image.thumb_name, src= "/thumbnails/" + image.thumb_name)
+  .modal.fade.modal-dynamic(id="create_account" tabindex="-1" role="dialog" aria-labelledby="create_accountLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-body
+          div(id="show-image")
+
   script(type="text/javascript").
     //- $( ".test" ).click(function() {
     //-   //- alert( "Handler for .click() called." );
@@ -28,19 +34,20 @@ block content
       //- $('#show-image').html((event.target).text).show();
       //- console.log(event.target.name);
       //- $('#show-image').prepend('/file/thumb_name?=' + event.target.name);
+      $('#create_account').modal('show'); 
       $.get( "file?thumb_name=" + event.target.name, function( data ) {
         //- $( ".result" ).html( data );
-        $('#show-image').prepend(data);
-        alert( "Load was performed." );
+        $('#show-image').html(data);
+        //- alert( "Load was performed." );
       });
       //- $.ajax({url: "http://localhost:3000/images/mushrooms-984c7f1bc6e8dbdc54142c5204acd383.jpg", success: function(result){
       //-   //- $("#show-image").html(result);
       //-   $('#show-image').html(event.target).show();
       //- }});
-      //- if($('#1').css('display')!='none'){
-      //- $('#2').html('Here is my dynamic content').show().siblings('div').hide();
-      //- }else if($('#2').css('display')!='none'){
-      //-     $('#1').show().siblings('div').hide();
-      //- }
+      if($('#1').css('display')!='none'){
+        $('#2').html('Here is my dynamic content').show().siblings('div').hide();
+      }else if($('#2').css('display')!='none'){
+        $('#1').show().siblings('div').hide();
+      }
     });  
   div.col-md-2

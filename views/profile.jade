@@ -1,0 +1,12 @@
+extends layout
+block content
+  include ./nav.jade
+  div.col-md-2
+  div.col-md-8
+    //- div.testcolor
+    div.list-group.center-block
+      a.list-group-item.active(href="" class="list-group-item active")
+        |#{session.user_name}
+      a.list-group-item(href="")
+        |#{session.user_email}
+  div.col-md-2

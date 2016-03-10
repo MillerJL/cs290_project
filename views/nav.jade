@@ -9,8 +9,9 @@
       a.navbar-brand(href='/') SDP
     div.navbar-collapse.collapse
       ul.nav.navbar-nav
-        li
-          a(data-toggle="modal", href="#upload_image") Upload
+        if session.logged_in == 1
+          li
+            a(data-toggle="modal", href="#upload_image") Upload
       ul.nav.navbar-nav.navbar-right
         li
           if session.logged_in != 1
@@ -25,7 +26,7 @@
                   b #{session.user_name}
                 li.divider
                 li
-                  a.dropdown-sexy(href='#') Profile
+                  a.dropdown-sexy(href='./profile') Profile
                 li.divider
                 li
                   form(id="logout" action="/logout" method="post")
@@ -35,10 +36,12 @@
         .modal-content
           .modal-header
             if session.user_name
-              h1 #{session.user_name}
+              h1.upload_imageLabel.modal-title 
+              | Upload an image for #{session.user_name}
+            else 
+              h1.upload_imageLabel.modal-title 
+              | Upload an image for whoever you are...
             button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-            h4.upload_imageLabel.modal-title 
-            | Upload an image
           .modal-body
             form(action="/upload", method="post", enctype="multipart/form-data")
               div.input-group.input-group

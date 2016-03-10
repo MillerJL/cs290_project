@@ -7,20 +7,22 @@ var q = require('q');
 
 
 function checkUploadType(values, req, callback) {
-  var checkType = function(values, cb) {
+  var checkType = function(values, callback) {
     if(values.type == "local") {
       values.originalname = values.file.originalname;
       values.path = values.file.path;
-      cb(null, values);
+      callback(values);
     } else {
       var download = function(uri, filename, re) {
         req.request.head(uri, function(err, res, body){
-          var accepted = ['image/jpg', 'image/png', 'image/jpeg'];
+          var accepted = ['image/gif', 'image/jpg', 'image/png', 'image/jpeg'];
+          console.log('content-type:', res.headers['content-type']);
+          console.log('content-length:', res.headers['content-length']);
 
-          if(res && accepted.indexOf(res.headers['content-type']) > -1) {
+          if(accepted.indexOf(res.headers['content-type']) > -1) {
             req.request(uri).pipe(req.fs.createWriteStream(filename)).on('close', re);
           } else {
-            re("Only image types: jpg, png are allowed");
+            req.flash("error", "Only image types: gif, jpg, png are allowed");
           }
         });
       };
@@ -28,29 +30,27 @@ function checkUploadType(values, req, callback) {
       values.originalname = (values.file.substr(values.file.lastIndexOf('/') + 1));
       values.path = "public/uploads/" + values.originalname;
 
-      download(values.file, values.path, function(err) {
-        cb(err, values);
+      download(values.file, values.path, function() {
+        callback(values);
       });
     }
   }
-  checkType(values, function(err, values){
-    callback(err, values);
+  checkType(values, function(values){
+    callback(values);
   });
 }
 
 function generateToken(values, req, callback) {
   // console.log('GENERATE TOKEN');
-  var err = null;
-  req.crypto.randomBytes(8, function(ex, buf) {
+  req.crypto.randomBytes(16, function(ex, buf) {
     var token = buf.toString('hex');
     values.token = token;
-    callback(err, values);
+    callback(values);
   });
 }
 
 function insertData(values, req, callback) {
   // console.log('INSERT DATA');
-  var err = null;
 
   var sql = 'INSERT INTO test_pictures SET ?';
   var tempName = values.originalname;
@@ -67,20 +67,19 @@ function insertData(values, req, callback) {
   values.newFileNameThumbnail = newFileNameThumbnail;
   req.connection.query(sql, sqlValues, function(err, result) {
     if(!err) {
-      callback(err, values);
+      callback(values);
     } else {
-      throw new Error(" processing file. Please try again");
+      throw new Error("Error processing file. Please try again");
     }
   });
 }
 
 function moveUpload(values, req, callback) {
   // console.log('MOVE UPLOAD');
-  var err = null;
 
   req.fs.rename(values.filePath, values.newFileNamePath, function(err) {
     if (!err) {
-      callback(err, values);
+      callback(values);
     } else {
       throw new Error("Error processing file. Please try again");
     }
@@ -88,8 +87,7 @@ function moveUpload(values, req, callback) {
 }
 
 function createThumb(values, req, callback) {
-  // console.log('CREATE THUMB');
-  var err = null;
+  console.log('CREATE THUMB');
 
   var test = {
     src: values.newFileNamePath, dst:'public/thumbnails/' + values.newFileNameThumbnail,
@@ -100,18 +98,12 @@ function createThumb(values, req, callback) {
   req.easyimg.rescrop(test)
   .then(
     function(image) {
-       callback(err, values);
+       callback(values);
     },
     function (err) {
       console.log(err);
-      callback(err, values);
     }
   );
-}
-
-function sendError(req, res, err) {
-  req.flash("error", err);
-  res.redirect('/');
 }
 
 router.post('/', multer({ dest: './public/uploads/'}).single('upl'), function(req, res) {
@@ -125,33 +117,16 @@ router.post('/', multer({ dest: './public/uploads/'}).single('upl'), function(re
         values.file = req.body.upload_url;
         values.type = "url";
       }
-      // I am so sorry
-      checkUploadType(values, req, function(err, values) {
-        if(err)
-          sendError(req, res, err);
-        else {
-          generateToken(values, req, function(err, values) {
-            if(err)
-              sendError(req, res, err);
-            else {
-              insertData(values, req, function(err, values) {
-                if(err)
-                  sendError(req, res, err);
-                else {
-                  moveUpload(values, req, function(err, values) {
-                    if(err)
-                      sendError(req, res, err);
-                    else {
-                      createThumb(values, req, function(err, values) {
-                        res.redirect('/');
-                      });
-                    }
-                  });
-                }
+      checkUploadType(values, req, function(values) {
+        generateToken(values, req, function(values) {
+          insertData(values, req, function(values) {
+            moveUpload(values, req, function(values) {
+              createThumb(values, req, function(values) {
+                res.redirect('/');
               });
-            }
+            });
           });
-        }
+        });
       });
     } else {
       req.flash("error", "You're not logged in you dingus");

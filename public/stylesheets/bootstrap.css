@@ -4563,6 +4563,16 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-bottom: 5px;
   border-radius: 10px;
 }
+#modal-image {
+  width: 100%;
+}
+#target {
+
+}
+#target:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
 .dropdown-sexy {
   display: block;
   padding: 3px 20px;
@@ -5346,6 +5356,7 @@ a.thumbnail.active {
 .list-group {
   padding-left: 0;
   margin-bottom: 20px;
+  width: 500px;
 }
 .list-group-item {
   position: relative;
@@ -6034,7 +6045,8 @@ button.close {
   opacity: .5;
 }
 .modal-header {
-  padding: 15px;
+  padding: 10px;
+  /*margin-top: -10px;*/
   border-bottom: 1px solid #e5e5e5;
 }
 .modal-header .close {
@@ -6046,7 +6058,7 @@ button.close {
 }
 .modal-body {
   position: relative;
-  padding: 15px;
+  padding: 10px;
 }
 .modal-footer {
   padding: 15px;
@@ -6072,8 +6084,8 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
-    margin: 30px auto;
+    width: 100em;
+    margin: 10em auto;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
@@ -6084,6 +6096,12 @@ button.close {
   }
   .modal-md {
     width: 400px;
+  }
+  .modal-dynamic {
+    width:'auto';
+    height:'auto';
+    max-height:'100%';
+    max-width: '100%';
   }
 }
 @media (min-width: 992px) {
