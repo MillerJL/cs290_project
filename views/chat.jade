@@ -1,0 +1,33 @@
+extends layout
+block content
+  include ./nav.jade
+  div.col-md-2
+  div.col-md-8
+    //- h1 #{words[0].word}
+    script(type="text/javascript").
+      var local_data =!{JSON.stringify(words)};
+      var wordCloudWords = [];
+      console.log(local_data[0]);
+      for(i=0;i<local_data.length;i++) {
+        wordCloudWords.push(local_data[i]);
+      }
+      //- console.log(#{words[0].word});
+      /*!
+       * Create an array of word objects, each representing a word in the cloud
+       */
+       var word_array = wordCloudWords;
+        //- var word_array = [
+        //-     {text: "Lorem", weight: 15},
+        //-     {text: "Ipsum", weight: 9, link: "http://jquery.com/"},
+        //-     {text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
+        //-     {text: "Sit", weight: 7},
+        //-     {text: "Amet", weight: 5}
+        //-     // ...as many words as you want
+        //- ];
+
+      $(function() {
+        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+        $("#example").jQCloud(word_array);
+      });
+    div(id="example" style="width: 550px; height: 350px;")
+  div.col-md-2

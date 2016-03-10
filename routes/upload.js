@@ -70,6 +70,7 @@ function insertData(values, req, callback) {
       callback(err, values);
     } else {
       throw new Error(" processing file. Please try again");
+      callback(err, values);
     }
   });
 }

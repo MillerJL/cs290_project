@@ -12,6 +12,8 @@
         if session.logged_in == 1
           li
             a(data-toggle="modal", href="#upload_image") Upload
+          li
+            a(href='./chat') Word Cloud
       ul.nav.navbar-nav.navbar-right
         li
           if session.logged_in != 1
