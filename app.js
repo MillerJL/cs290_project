@@ -34,7 +34,7 @@ var createAccount = require('./routes/login/createAccount');
 var logout = require('./routes/logout');
 var upload = require('./routes/upload');
 var file = require('./routes/file');
-
+var chat = require('./routes/chat');
 var app = express();
 
 app.use(require('connect-flash')());
@@ -90,7 +90,7 @@ app.use('/login/:user_id', login);
 app.use('/logout', logout);
 app.use('/upload', upload);
 app.use('/file', file);
-
+app.use('/chat', chat);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
